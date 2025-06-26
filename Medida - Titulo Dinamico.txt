@@ -1,0 +1,18 @@
+Título Dinâmico = 
+IF (
+    -- 1. Verifica se NENHUM filtro está aplicado na coluna
+    NOT ISFILTERED ( Planilha[Usina] ),
+    "Geral",
+    -- 2. Se houver filtro, verifica se é APENAS UM item
+    IF (
+        HASONEVALUE ( Planilha[Usina] ),
+        -- Se for um, mostra o valor único
+        SELECTEDVALUE ( Planilha[Usina] ),
+        -- Se for mais de um, concatena todos os valores selecionados
+        CONCATENATEX (
+            VALUES ( Planilha[Usina] ),
+            Planilha[Usina],
+            ", "
+        )
+    )
+)
